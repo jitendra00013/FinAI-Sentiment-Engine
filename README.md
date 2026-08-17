@@ -29,3 +29,8 @@ An end-to-end full-stack Artificial Intelligence platform designed to analyze fi
 cd Backend
 pip install -r requirements.txt # or pip install fastapi uvicorn pymongo transformers torch
 python -m uvicorn main:app --reload --port 8000
+2. Frontend Setup
+Bash
+cd client
+npm install
+npm start
