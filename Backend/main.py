@@ -60,12 +60,15 @@ async def lifespan(_: FastAPI):
             serverSelectionTimeoutMS=3000,
             connectTimeoutMS=3000,
         )
+        mongo_client.admin.command("ping")
         history_collection = mongo_client["stock_db"]["history"]
-        logger.info("MongoDB history storage configured")
+        logger.info("MongoDB connection verified; history storage enabled")
     except Exception:
+        if mongo_client is not None:
+            mongo_client.close()
         mongo_client = None
         history_collection = None
-        logger.exception("MongoDB initialization failed; history storage is disabled")
+        logger.exception("MongoDB is unavailable; history storage is disabled")
 
     yield
 
