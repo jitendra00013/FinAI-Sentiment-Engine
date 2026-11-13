@@ -76,8 +76,8 @@ def generate_dynamic_summary(text: str) -> str:
     if word_count <= 1000:
         if len(paragraphs) >= 3:
             return (
-                f"KEY HIGHLIGHTS:\\n{paragraphs[0]}\\n\\n"
-                f"CONCLUSION / IMPACT:\\n{paragraphs[-1]}"
+                f"KEY HIGHLIGHTS:\n{paragraphs[0]}\n\n"
+                f"CONCLUSION / IMPACT:\n{paragraphs[-1]}"
             )
         return " ".join(words[:150]) + "…"
 
@@ -85,13 +85,13 @@ def generate_dynamic_summary(text: str) -> str:
         return " ".join(words[:300]) + "…"
 
     midpoint = len(paragraphs) // 2
-    intro = "\\n\\n".join(paragraphs[:2])
-    middle = "\\n\\n".join(paragraphs[max(0, midpoint - 1): midpoint + 1])
-    conclusion = "\\n\\n".join(paragraphs[-2:])
+    intro = "\n\n".join(paragraphs[:2])
+    middle = "\n\n".join(paragraphs[max(0, midpoint - 1): midpoint + 1])
+    conclusion = "\n\n".join(paragraphs[-2:])
     return (
-        f"EXECUTIVE OVERVIEW & KEY HIGHLIGHTS:\\n{intro}\\n\\n"
-        f"FINANCIAL METRICS & PERFORMANCE CONTEXT:\\n{middle}\\n\\n"
-        f"MARKET OUTLOOK & CONCLUSION:\\n{conclusion}"
+        f"EXECUTIVE OVERVIEW & KEY HIGHLIGHTS:\n{intro}\n\n"
+        f"FINANCIAL METRICS & PERFORMANCE CONTEXT:\n{middle}\n\n"
+        f"MARKET OUTLOOK & CONCLUSION:\n{conclusion}"
     )
 
 @app.get("/health")
