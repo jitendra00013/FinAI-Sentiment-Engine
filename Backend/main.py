@@ -181,10 +181,16 @@ def generate_dynamic_summary(text: str) -> str:
             )
         return " ".join(words[:150]) + "..."
 
-    intro = "\n\n".join(paragraphs[:2])
-    middle_start = len(paragraphs) // 2
-    middle = "\n\n".join(paragraphs[middle_start:middle_start + 2])
-    conclusion = "\n\n".join(paragraphs[-2:])
+    if len(paragraphs) < 3:
+        midpoint = word_count // 2
+        intro = " ".join(words[:120])
+        middle = " ".join(words[max(120, midpoint - 60):midpoint + 60])
+        conclusion = " ".join(words[-120:])
+    else:
+        intro = "\n\n".join(paragraphs[:2])
+        middle_start = len(paragraphs) // 2
+        middle = "\n\n".join(paragraphs[middle_start:middle_start + 2])
+        conclusion = "\n\n".join(paragraphs[-2:])
 
     return (
         f"Executive Overview & Key Highlights:\n{intro}\n\n"
