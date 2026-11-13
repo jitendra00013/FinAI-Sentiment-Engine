@@ -245,8 +245,9 @@ async def process_news_impact(payload: NewsPayload) -> dict[str, Any]:
 
     if history_collection is not None:
         try:
-            history_collection.insert_one(
-                {**response_data, "created_at": datetime.now(timezone.utc)}
+            await run_in_threadpool(
+                history_collection.insert_one,
+                {**response_data, "created_at": datetime.now(timezone.utc)},
             )
         except Exception:
             logger.exception("Analysis completed, but MongoDB history write failed")
